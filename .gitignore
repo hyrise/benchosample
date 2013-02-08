@@ -11,3 +11,13 @@
 *.lai
 *.la
 *.a
+
+
+.DS_Store
+bencho/build/
+bencho/plot_last_bench.txt
+bencho/plot_last_run.txt
+results/
+bencho/settings.conf
+benchmarks/bin
+include/%   

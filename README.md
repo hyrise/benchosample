@@ -1,31 +1,27 @@
-benchosample
-============
+# Benchosample
 
-A sample benchmark using the bencho framework.
+A sample benchmark using the Bencho framework.
 
+## Building
 
-FIRST USE
+### Initialization
 
-To place the 'bencho'-framework into this repository as git-submodule,
-type the following commands (after you cloned the benchosample.benchosample repository here):
+Supported operating systems are Linux and Max OS X, however the PAPI library wont work on the Apple operating systems.
 
-	git submodule init
-	git submodule update (use this to update your submodule, too)
+To build Benchosample first you have to check if the Bencho framework submodule is initialized correctly.
 
-for further information, visit http://git-scm.com/book/en/Git-Tools-Submodules
+	git submodule update --init
 
+Further information to the framework: [Bencho](https://github.com/schwald/bencho)
 
+### Running the sample
 
-Quickstart
+To run the sample benchmark, call
 
-	1. Place your benchmarks (.cpp files) in ./benchmarks/
+	make run
 
-	2. If needed, place external include-files (.h and/or .cpp) in ./include/
+### Using Bencho
 
-	3. run 'make config'	(only first time)
-			PAPI recommended, but not available for Mac
+If you want to use Bencho for yourself, place your own benchmarks into the benchmarks/ folder and external include files into include/.
 
-	4. run 'make' and 'make run'
-
-
-For further information check out the Bencho documentation (bencho/docs/index.html).
+Have a look at the sample benchmark source code as well as the Bencho documentation to get to know how a benchmark has to be structured to work well with Bencho.

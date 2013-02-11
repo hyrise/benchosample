@@ -10,7 +10,7 @@ INCLUDE_BENCHO = $(BENCHO_DIR)/include
 LIB_NAME = bencho
 
 # if you need to include extra files for your benchmarks #
-INCLUDE_EXTERN = ./include
+INCLUDE_EXTERN = ./include/$(@F)
 
 INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN)
 
@@ -66,7 +66,7 @@ $(libbencho):
 benchmarks: $(binaries)
 
 $(binaries): $(BENCH_BIN)/%: $(BENCH_SRC)/%.cpp $(libbencho)
-	$(call echo_cmd,CC $@) $(CC) -o $@ $< -L$(LIB_DIR)/ -l$(LIB_NAME) $(BUILD_FLAGS) $(LINKER_FLAGS)
+	$(call echo_cmd,CC $@) $(CC) -o $@ $< -L$(LIB_DIR)/ -l$(LIB_NAME) $(BUILD_FLAGS) $(LINKER_FLAGS) $(shell find $(INCLUDE_EXTERN) -type f -name "*.cpp")
 
 dirs:
 	@mkdir -p $(BENCH_BIN)

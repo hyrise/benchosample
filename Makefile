@@ -42,6 +42,8 @@ endif
 benchmarks := $(shell find $(BENCH_SRC) -type f -name "*.cpp")
 binaries := $(subst $(BENCH_SRC),$(BENCH_BIN),$(subst .cpp, ,$(benchmarks)))
 
+include_extern = $(shell find $(INCLUDE_EXTERN) -type f -name "*.cpp" 2>/dev/null)
+
 libbencho = $(LIB_DIR)/lib$(LIB_NAME).a
 
 
@@ -66,7 +68,7 @@ $(libbencho):
 benchmarks: $(binaries)
 
 $(binaries): $(BENCH_BIN)/%: $(BENCH_SRC)/%.cpp $(libbencho)
-	$(call echo_cmd,CC $@) $(CC) -o $@ $< -L$(LIB_DIR)/ -l$(LIB_NAME) $(BUILD_FLAGS) $(LINKER_FLAGS) $(shell find $(INCLUDE_EXTERN) -type f -name "*.cpp")
+	$(call echo_cmd,CC $@) $(CC) -o $@ $< -L$(LIB_DIR)/ -l$(LIB_NAME) $(BUILD_FLAGS) $(LINKER_FLAGS) $(include_extern)
 
 dirs:
 	@mkdir -p $(BENCH_BIN)

@@ -39,6 +39,14 @@ else # Verbose output
 	echo_cmd =
 endif
 
+ifeq ($(fast), 1)
+	ARGUMENTS += -fast
+endif
+
+ifeq ($(silent), 1)
+	ARGUMENTS += -silent
+endif
+
 benchmarks := $(shell find $(BENCH_SRC) -type f -name "*.cpp")
 binaries := $(subst $(BENCH_SRC),$(BENCH_BIN),$(subst .cpp, ,$(benchmarks)))
 
@@ -56,7 +64,7 @@ config:
 lib: libbencho
 
 run: all
-	@./bencho/selectBenchmarks.sh $(BENCH_BIN)
+	@./bencho/selectBenchmarks.sh $(BENCH_BIN) $(ARGUMENTS)
 
 libbencho: $(libbencho)
 

@@ -47,7 +47,7 @@ ifeq ($(silent), 1)
 	ARGUMENTS += -silent
 endif
 
-benchmarks := $(shell find $(BENCH_SRC) -type f -name "*.cpp")
+benchmarks := $(shell find $(BENCH_SRC) -type f -name "*.cpp" -not -name "_*")
 binaries := $(subst $(BENCH_SRC),$(BENCH_BIN),$(subst .cpp, ,$(benchmarks)))
 
 include_extern = $(shell find $(INCLUDE_EXTERN) -type f -name "*.cpp" 2>/dev/null)

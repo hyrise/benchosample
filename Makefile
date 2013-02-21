@@ -35,8 +35,10 @@ endif
 
 ifneq ($(VERBOSE_BUILD), 1)
 	echo_cmd = @echo "$(1)";
+	silent_cmd = -s
 else # Verbose output
 	echo_cmd =
+	silent_cmd =
 endif
 
 ifeq ($(fast), 1)
@@ -71,7 +73,7 @@ run: all
 libbencho: $(libbencho)
 
 $(libbencho):
-	$(call echo_cmd,)cd $(BENCHO_DIR) && make -s
+	$(call echo_cmd,)cd $(BENCHO_DIR) && make $(silent_cmd)
 
 benchmarks: $(binaries)
 

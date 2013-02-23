@@ -1,46 +1,20 @@
 #!/usr/bin/env python
-# a line plot with errorbars
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-import csv
-import string
+# customizable settings for python plot
 
-plotList = ['random_PAPI_TOT_CYC_y', 'sequential_forwards_PAPI_TOT_CYC_y']
+#Specify the title of your Plot (default: name of your benchmark)
+settings['title'] = 'Stride'
 
-csvReader = csv.reader(open('../results/Stride/Stride_1.result.csv'))
+#Uncomment next line to specify a label for the x axis (default: title of csv x-column)
+settings['xLabel'] = 'Stride in Bytes'
+#Uncomment next line to specify a label for the y axis (default: list of plotted column names)
+settings['yLabel'] = 'CPU Cycles per Element'
+ 
+#Uncomment next line to specify the scale of your benchmark (default: linear)
+settings['xScale'] = 'log'
+#Uncomment next line to specify the base of a logarithmic scale (dafault: 10) 
+settings['xScaleBase'] = 2
 
-line = csvReader.next()
-lineContents = line[0].split(' ')
-lineIndices = list()
-for entry in lineContents:
-	for counter in plotList:
-		if entry == counter:
-			lineIndices.append(lineContents.index(entry))
+#Specify the columns you want to have in your plot
+settings['plotList'] = ['random_PAPI_TOT_CYC_y', 'sequential_forwards_PAPI_TOT_CYC_y']
 
-x = list()
-y = list()
-for index in lineIndices:
-	z = list()
-	y.append(z)
-
-for line in csvReader:
-	lineContents = line[0].split(' ')
-	x.append(int(lineContents[0]))
-	for i in range(0,len(lineIndices)):
-		y[i].append(int(lineContents[lineIndices[i]]))
-
-yy = np.arange(24)
-yy.shape = (6,4)
-
-mpl.rc('lines', linewidth=2)
-
-fig = plt.figure()
-mpl.rcParams['axes.color_cycle'] = ['r', 'g', 'b', 'c']
-ax = fig.add_subplot(2,1,1)
-for i in range(0,len(lineIndices)):
-	ax.plot(x, y[i])
-ax.set_title('Stride')
-ax.set_xscale('log')
-
-plt.show()
+#settings[...]

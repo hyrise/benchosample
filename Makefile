@@ -12,7 +12,7 @@ LIB_NAME = bencho
 # if you need to include extra files for your benchmarks #
 INCLUDE_EXTERN = ./include/$(@F)
 
-INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN)
+INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN) $(shell python-config --includes)
 
 settings = $(BENCHO_DIR)/settings.conf
 -include $(settings)

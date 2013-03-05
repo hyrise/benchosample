@@ -14,7 +14,7 @@ def getOptionParser():
     parser.add_option('-n', '--name', help="set benchmark name", type='string', dest='name')
     return parser
 
-def plot(csvFile, benchmarkName):
+def plot(csvFile, benchmarkScript):
 
 	csvReader = csv.reader(open(csvFile))
 
@@ -32,7 +32,7 @@ def plot(csvFile, benchmarkName):
 
 	#executing the particular script so settings is filled with customization
 	# execfile(options.name + '.py')	
-	execfile(benchmarkName + '.py')
+	execfile(benchmarkScript)
 
 	line = csvReader.next()
 	lineContents = line[0].split(' ')
@@ -79,14 +79,14 @@ def plot(csvFile, benchmarkName):
 	plotName = plotName[:plotName.find('.')]
 	
 	plt.savefig(plotDir + plotName + '.pdf')
-	plt.show()
+	# plt.show()
 
 
-parser = getOptionParser()
-(options, args) = parser.parse_args(sys.argv, None)
+# parser = getOptionParser()
+# (options, args) = parser.parse_args(sys.argv, None)
 
-if options.file == None:
-	parser.print_help()
-	sys.exit(0)
+# if options.file == None:
+# 	parser.print_help()
+# 	sys.exit(0)
 
-plot(options.file, options.name)
+# plot(options.file, options.name)

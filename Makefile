@@ -14,11 +14,13 @@ INCLUDE_EXTERN = ./include/$(@F)
 
 INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN) $(shell python-config --includes)
 
+PYTHON_VERSION = $(shell python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+
 settings = $(BENCHO_DIR)/settings.conf
 -include $(settings)
 
 BUILD_FLAGS = $(INCLUDE)
-LINKER_FLAGS = -lpthread -ldl
+LINKER_FLAGS = -lpthread -ldl -lpython$(PYTHON_VERSION)
 
 ifeq ($(PROD), 1)
 	BUILD_FLAGS += -O3 -finline-functions -DNDEBUG -D USE_TRACE -g -pipe
@@ -86,3 +88,4 @@ dirs:
 clean:
 	@cd $(BENCHO_DIR) && make clean -s
 	$(call echo_cmd,REMOVE $(BENCH_BIN)) rm -rf $(BENCH_BIN)
+	@rm -rf benchmarks/*.pyc

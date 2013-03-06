@@ -14,7 +14,7 @@ def getOptionParser():
     parser.add_option('-n', '--name', help="set benchmark name", type='string', dest='name')
     return parser
 
-def plot(csvFile, benchmarkScript):
+def plot(csvFile, scriptFile):
 
 	csvReader = csv.reader(open(csvFile))
 
@@ -32,7 +32,7 @@ def plot(csvFile, benchmarkScript):
 
 	#executing the particular script so settings is filled with customization
 	# execfile(options.name + '.py')	
-	execfile(benchmarkScript)
+	execfile(scriptFile)
 
 	line = csvReader.next()
 	lineContents = line[0].split(' ')

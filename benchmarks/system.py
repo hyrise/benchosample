@@ -7,6 +7,7 @@ import csv
 import string
 import sys
 from optparse import OptionParser
+from matplotlib.ticker import MaxNLocator
 
 def getOptionParser():
     parser = OptionParser()
@@ -29,6 +30,8 @@ def plot(csvFile, scriptFile):
 	settings['xDivider'] = 1
 	settings['grid'] = 'none'
 	settings['plotList'] = []
+	settings['figureSize'] = (6.5, 6)
+	settings['numberOfYTicks'] = False
 
 	#executing the particular script so settings is filled with customization
 	# execfile(options.name + '.py')	
@@ -60,7 +63,7 @@ def plot(csvFile, scriptFile):
 
 	mpl.rc('lines', linewidth=2)
 
-	fig = plt.figure()
+	fig = plt.figure(1, figsize=settings['figureSize'])
 	mpl.rcParams['axes.color_cycle'] = ['r', 'g', 'b', 'c']
 	ax = fig.add_subplot(2,1,1)
 	for i in range(0,len(lineIndices)):
@@ -69,6 +72,8 @@ def plot(csvFile, scriptFile):
 	ax.set_xlabel(settings['xLabel'])
 	ax.set_ylabel(settings['yLabel'])
 	ax.set_xscale(settings['xScale'], basex=settings['xScaleBase'])
+	if settings['numberOfYTicks']:
+		ax.yaxis.set_major_locator(MaxNLocator(settings['numberOfYTicks']))
 	if settings['grid'] is 'yAxis':
 		ax.yaxis.grid(True)
 
@@ -79,7 +84,7 @@ def plot(csvFile, scriptFile):
 	plotName = plotName[:plotName.find('.')]
 	
 	plt.savefig(plotDir + plotName + '.pdf')
-	# plt.show()
+# 	plt.show()
 
 
 # parser = getOptionParser()

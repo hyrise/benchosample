@@ -38,61 +38,66 @@ def plot(csvFile, scriptFile):
 	execfile(scriptFile)
 
 	plotNumber = 0
+	plotDir = csvFile[:csvFile.rfind('/') + 1]
+	plotName = csvFile[csvFile.rfind('/'):]
+	plotName = plotName[:plotName.find('.')]
+
 	for settingsList in plots:
 		csvReader = csv.reader(open(csvFile))
 		line = csvReader.next()
 		lineContents = line[0].split(' ')
 		lineIndices = list()
+		lineLabels = list()
 		for entry in lineContents:
 			for counter in settingsList['plotList']:
 				if entry == counter:
 					lineIndices.append(lineContents.index(entry))
+					lineLabels.append(entry)
 
-		x = list()
-		y = list()
-		for index in lineIndices:
-			z = list()
-			y.append(z)
+		if len(lineIndices) > 0:
+			x = list()
+			y = list()
+			for index in lineIndices:
+				z = list()
+				y.append(z)
 
-		for line in csvReader:
-			lineContents = line[0].split(' ')
-			x.append(int(lineContents[0]) / settingsList['xDivider'])
+			for line in csvReader:
+				lineContents = line[0].split(' ')
+				x.append(float(lineContents[0]) / settingsList['xDivider'])
+				for i in range(0,len(lineIndices)):
+					y[i].append(float(lineContents[lineIndices[i]]) / settingsList['yDivider'])
+
+
+			mpl.rc('lines', linewidth=2)
+
+			fig = plt.figure(1, figsize=settingsList['figureSize'])
+			mpl.rcParams['axes.color_cycle'] = ['r', 'g', 'b', 'c']
+			ax = fig.add_subplot(2,1,1)
 			for i in range(0,len(lineIndices)):
-				y[i].append(int(lineContents[lineIndices[i]]) / settingsList['yDivider'])
+				ax.plot(x, y[i], label=lineLabels[i])
+			ax.set_title(settingsList['title'])
+			ax.set_xlabel(settingsList['xLabel'])
+			ax.set_ylabel(settingsList['yLabel'])
+			ax.set_xscale(settingsList['xScale'], basex=settingsList['xScaleBase'])
+			if settingsList['numberOfYTicks']:
+				ax.yaxis.set_major_locator(MaxNLocator(settingsList['numberOfYTicks']))
+			if settingsList['grid'] is 'yAxis':
+				ax.yaxis.grid(True)
+
+			# ax.annotate('Cache Linesize', (64, 500), xytext=None, xycoords='data', textcoords='data', arrowprops=None)
+			
+			ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), fancybox=True, shadow=True)
+
+			plt.savefig(plotDir + plotName + '_' + str(plotNumber) + '.pdf')
+			plotNumber += 1
+			plt.close()
 
 
-		mpl.rc('lines', linewidth=2)
+parser = getOptionParser()
+(options, args) = parser.parse_args(sys.argv, None)
 
-		fig = plt.figure(1, figsize=settingsList['figureSize'])
-		mpl.rcParams['axes.color_cycle'] = ['r', 'g', 'b', 'c']
-		ax = fig.add_subplot(2,1,1)
-		for i in range(0,len(lineIndices)):
-			ax.plot(x, y[i])
-		ax.set_title(settingsList['title'])
-		ax.set_xlabel(settingsList['xLabel'])
-		ax.set_ylabel(settingsList['yLabel'])
-		ax.set_xscale(settingsList['xScale'], basex=settingsList['xScaleBase'])
-		if settingsList['numberOfYTicks']:
-			ax.yaxis.set_major_locator(MaxNLocator(settingsList['numberOfYTicks']))
-		if settingsList['grid'] is 'yAxis':
-			ax.yaxis.grid(True)
+if options.file == None:
+	parser.print_help()
+	sys.exit(0)
 
-		# ax.annotate('Cache Linesize', (64, 500), xytext=None, xycoords='data', textcoords='data', arrowprops=None)
-
-		plotDir = csvFile[:csvFile.rfind('/') + 1]
-		plotName = csvFile[csvFile.rfind('/'):]
-		plotName = plotName[:plotName.find('.')]
-		
-		plt.savefig(plotDir + plotName + '_' + str(plotNumber) + '.pdf')
-		plotNumber += 1
-		plt.close()
-
-
-# parser = getOptionParser()
-# (options, args) = parser.parse_args(sys.argv, None)
-
-# if options.file == None:
-# 	parser.print_help()
-# 	sys.exit(0)
-
-# plot(options.file, options.name)
+plot(options.file, options.name)

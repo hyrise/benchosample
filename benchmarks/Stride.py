@@ -34,13 +34,26 @@ settings['plotList'] = ['random_PAPI_TOT_CYC_y', 'sequential_forwards_PAPI_TOT_C
 plots.append(dict(settings))
 
 #Specify the title of your Plot (default: name of your benchmark)
-settings['title'] = 'Stride 2'
+settings['title'] = 'Stride Random Cache Misses'
+
+#Uncomment next line to specify a label for the y axis (default: list of plotted column names)
+settings['yLabel'] = 'Chache Misses per Element'
 
 #Specify the columns you want to have in your plot
-settings['plotList'] = ['sequential_backwards_PAPI_TOT_CYC_y']
+settings['plotList'] = ['random_PAPI_L1_DCM_y', 'random_PAPI_L2_DCM_y', 'random_PAPI_L3_TCM_y', 'random_PAPI_TLB_DM_y']
 
 plots.append(dict(settings))
-#settings[...]
+
+#Specify the title of your Plot (default: name of your benchmark)
+settings['title'] = 'Stride Sequential Cache Misses'
+
+#Uncomment next line to specify a label for the y axis (default: list of plotted column names)
+settings['yLabel'] = 'Chache Misses per Element'
+
+#Specify the columns you want to have in your plot
+settings['plotList'] = ['sequential_forwards_PAPI_L1_DCM_y', 'sequential_forwards_PAPI_L2_DCM_y', 'sequential_forwards_PAPI_L3_TCM_y', 'sequential_forwards_PAPI_TLB_DM_y']
+
+plots.append(dict(settings))
 
 
 

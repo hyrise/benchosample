@@ -31,5 +31,16 @@ settings['figureSize'] = (6.5, 8)
 #Specify the columns you want to have in your plot
 settings['plotList'] = ['random_PAPI_TOT_CYC_y', 'sequential_forwards_PAPI_TOT_CYC_y']
 
+plots.append(dict(settings))
 
+#Specify the title of your Plot (default: name of your benchmark)
+settings['title'] = 'Stride 2'
+
+#Specify the columns you want to have in your plot
+settings['plotList'] = ['sequential_backwards_PAPI_TOT_CYC_y']
+
+plots.append(dict(settings))
 #settings[...]
+
+
+

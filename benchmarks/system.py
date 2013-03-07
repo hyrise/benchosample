@@ -17,11 +17,9 @@ def getOptionParser():
 
 def plot(csvFile, scriptFile):
 
-	csvReader = csv.reader(open(csvFile))
-
 	#defining default settings (in extra file too?)
 	settings = {}
-	settings['title'] = 'Stride'
+	settings['title'] = scriptFile[:scriptFile.find('.')]
 	settings['xScale'] = 'linear'
 	settings['xScaleBase'] = 10
 	settings['xLabel'] = 'par_stride'
@@ -33,58 +31,61 @@ def plot(csvFile, scriptFile):
 	settings['figureSize'] = (6.5, 6)
 	settings['numberOfYTicks'] = False
 
+	plots=list()
+
 	#executing the particular script so settings is filled with customization
 	# execfile(options.name + '.py')	
 	execfile(scriptFile)
 
-	line = csvReader.next()
-	lineContents = line[0].split(' ')
-	lineIndices = list()
-	for entry in lineContents:
-		for counter in settings['plotList']:
-			if entry == counter:
-				lineIndices.append(lineContents.index(entry))
-
-	x = list()
-	y = list()
-	for index in lineIndices:
-		z = list()
-		y.append(z)
-
-	for line in csvReader:
+	plotNumber = 0
+	for settingsList in plots:
+		csvReader = csv.reader(open(csvFile))
+		line = csvReader.next()
 		lineContents = line[0].split(' ')
-		x.append(int(lineContents[0]) / settings['xDivider'])
+		lineIndices = list()
+		for entry in lineContents:
+			for counter in settingsList['plotList']:
+				if entry == counter:
+					lineIndices.append(lineContents.index(entry))
+
+		x = list()
+		y = list()
+		for index in lineIndices:
+			z = list()
+			y.append(z)
+
+		for line in csvReader:
+			lineContents = line[0].split(' ')
+			x.append(int(lineContents[0]) / settingsList['xDivider'])
+			for i in range(0,len(lineIndices)):
+				y[i].append(int(lineContents[lineIndices[i]]) / settingsList['yDivider'])
+
+
+		mpl.rc('lines', linewidth=2)
+
+		fig = plt.figure(1, figsize=settingsList['figureSize'])
+		mpl.rcParams['axes.color_cycle'] = ['r', 'g', 'b', 'c']
+		ax = fig.add_subplot(2,1,1)
 		for i in range(0,len(lineIndices)):
-			y[i].append(int(lineContents[lineIndices[i]]) / settings['yDivider'])
+			ax.plot(x, y[i])
+		ax.set_title(settingsList['title'])
+		ax.set_xlabel(settingsList['xLabel'])
+		ax.set_ylabel(settingsList['yLabel'])
+		ax.set_xscale(settingsList['xScale'], basex=settingsList['xScaleBase'])
+		if settingsList['numberOfYTicks']:
+			ax.yaxis.set_major_locator(MaxNLocator(settingsList['numberOfYTicks']))
+		if settingsList['grid'] is 'yAxis':
+			ax.yaxis.grid(True)
 
+		# ax.annotate('Cache Linesize', (64, 500), xytext=None, xycoords='data', textcoords='data', arrowprops=None)
 
-	yy = np.arange(24)
-	yy.shape = (6,4)
-
-	mpl.rc('lines', linewidth=2)
-
-	fig = plt.figure(1, figsize=settings['figureSize'])
-	mpl.rcParams['axes.color_cycle'] = ['r', 'g', 'b', 'c']
-	ax = fig.add_subplot(2,1,1)
-	for i in range(0,len(lineIndices)):
-		ax.plot(x, y[i])
-	ax.set_title(settings['title'])
-	ax.set_xlabel(settings['xLabel'])
-	ax.set_ylabel(settings['yLabel'])
-	ax.set_xscale(settings['xScale'], basex=settings['xScaleBase'])
-	if settings['numberOfYTicks']:
-		ax.yaxis.set_major_locator(MaxNLocator(settings['numberOfYTicks']))
-	if settings['grid'] is 'yAxis':
-		ax.yaxis.grid(True)
-
-	ax.annotate('Cache Linesize', (64, 500), xytext=None, xycoords='data', textcoords='data', arrowprops=None)
-
-	plotDir = csvFile[:csvFile.rfind('/') + 1]
-	plotName = csvFile[csvFile.rfind('/'):]
-	plotName = plotName[:plotName.find('.')]
-	
-	plt.savefig(plotDir + plotName + '.pdf')
-# 	plt.show()
+		plotDir = csvFile[:csvFile.rfind('/') + 1]
+		plotName = csvFile[csvFile.rfind('/'):]
+		plotName = plotName[:plotName.find('.')]
+		
+		plt.savefig(plotDir + plotName + '_' + str(plotNumber) + '.pdf')
+		plotNumber += 1
+		plt.close()
 
 
 # parser = getOptionParser()

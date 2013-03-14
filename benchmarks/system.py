@@ -37,10 +37,12 @@ def plot(csvFile, scriptFile):
 	# execfile(options.name + '.py')	
 	execfile(scriptFile)
 
-	plotNumber = 0
+	plotNumber = 1
 	plotDir = csvFile[:csvFile.rfind('/') + 1]
 	plotName = csvFile[csvFile.rfind('/'):]
 	plotName = plotName[:plotName.find('.')]
+
+	plotList = list()
 
 	for settingsList in plots:
 		csvReader = csv.reader(open(csvFile))
@@ -88,16 +90,20 @@ def plot(csvFile, scriptFile):
 			
 			ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), fancybox=True, shadow=True)
 
-			plt.savefig(plotDir + plotName + '_' + str(plotNumber) + '.pdf')
+			resultPlot = plotDir + plotName + '_Py_' + str(plotNumber) + '.pdf'
+			plotList.append(resultPlot)
+			plt.savefig(resultPlot)
 			plotNumber += 1
 			plt.close()
+	return plotList
 
 
-parser = getOptionParser()
-(options, args) = parser.parse_args(sys.argv, None)
 
-if options.file == None:
-	parser.print_help()
-	sys.exit(0)
+# parser = getOptionParser()
+# (options, args) = parser.parse_args(sys.argv, None)
 
-plot(options.file, options.name)
+# if options.file == None:
+# 	parser.print_help()
+# 	sys.exit(0)
+
+# plot(options.file, options.name)

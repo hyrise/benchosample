@@ -15,8 +15,8 @@ set grid noxtics x2tics
 JUMPS = 4096
 
 plot\
-    "DATAFILE" using (($1-1)*8):(§@random_PAPI_TOT_CYC_y@§/JUMPS) title "Random" ls 1 with linespoints,\
-    "DATAFILE" using (($1-1)*8):(§@sequential_forwards_PAPI_TOT_CYC_y@§/JUMPS) title "Sequential" ls 2 with linespoints
+    "DATAFILE" using ($1):(§@random_PAPI_TOT_CYC_y@§/JUMPS) title "Random" ls 1 with linespoints,\
+    "DATAFILE" using ($1):(§@sequential_forwards_PAPI_TOT_CYC_y@§/JUMPS) title "Sequential" ls 2 with linespoints
 
 
 # plot random cache misses
@@ -27,10 +27,10 @@ set format y "%.1f"
 
 
 plot\
-    "DATAFILE" using (($1-1)*8):(§@random_PAPI_L3_TCM_y@§/JUMPS) ls 3 with linespoints,\
-    "DATAFILE" using (($1-1)*8):(§@random_PAPI_L1_DCM_y@§/JUMPS) ls 1 with linespoints,\
-    "DATAFILE" using (($1-1)*8):(§@random_PAPI_L2_DCM_y@§/JUMPS) ls 2 with linespoints,\
-    "DATAFILE" using (($1-1)*8):(§@random_PAPI_TLB_DM_y@§/JUMPS) ls 4 with linespoints
+    "DATAFILE" using ($1):(§@random_PAPI_L3_TCM_y@§/JUMPS) ls 3 with linespoints,\
+    "DATAFILE" using ($1):(§@random_PAPI_L1_DCM_y@§/JUMPS) ls 1 with linespoints,\
+    "DATAFILE" using ($1):(§@random_PAPI_L2_DCM_y@§/JUMPS) ls 2 with linespoints,\
+    "DATAFILE" using ($1):(§@random_PAPI_TLB_DM_y@§/JUMPS) ls 4 with linespoints
     
     
 # plot sequential cache misses
@@ -40,8 +40,8 @@ set ylabel "Misses per Element"
 set format y "%.1f"
 
 plot\
-    "DATAFILE" using (($1-1)*8):(§@sequential_forwards_PAPI_L1_DCM_y@§/JUMPS) ls 1 with linespoints,\
-    "DATAFILE" using (($1-1)*8):(§@sequential_forwards_PAPI_L2_DCM_y@§/JUMPS) ls 2 with linespoints,\
-    "DATAFILE" using (($1-1)*8):(§@sequential_forwards_PAPI_L3_TCM_y@§/JUMPS) ls 3 with linespoints,\
-    "DATAFILE" using (($1-1)*8):(§@sequential_forwards_PAPI_TLB_DM_y@§/JUMPS) ls 4 with linespoints
+    "DATAFILE" using ($1):(§@sequential_forwards_PAPI_L1_DCM_y@§/JUMPS) ls 1 with linespoints,\
+    "DATAFILE" using ($1):(§@sequential_forwards_PAPI_L2_DCM_y@§/JUMPS) ls 2 with linespoints,\
+    "DATAFILE" using ($1):(§@sequential_forwards_PAPI_L3_TCM_y@§/JUMPS) ls 3 with linespoints,\
+    "DATAFILE" using ($1):(§@sequential_forwards_PAPI_TLB_DM_y@§/JUMPS) ls 4 with linespoints
 

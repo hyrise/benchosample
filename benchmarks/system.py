@@ -17,7 +17,7 @@ def getOptionParser():
 
 def plot(csvFile, scriptFile):
 
-	#defining default settings (in extra file too?)
+	#defining default settings
 	settings = {}
 	settings['title'] = scriptFile[:scriptFile.find('.')]
 	settings['xScale'] = 'linear'
@@ -34,7 +34,6 @@ def plot(csvFile, scriptFile):
 	plots=list()
 
 	#executing the particular script so settings is filled with customization
-	# execfile(options.name + '.py')	
 	execfile(scriptFile)
 
 	plotNumber = 1

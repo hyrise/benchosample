@@ -33,10 +33,10 @@ public:
         
         
         addPerformanceCounter("PAPI_TOT_CYC");
-        //addPerformanceCounter("PAPI_L1_DCM");
-        //addPerformanceCounter("PAPI_L2_DCM");
-        //addPerformanceCounter("PAPI_L3_TCM");
-        //addPerformanceCounter("PAPI_TLB_DM");
+        // addPerformanceCounter("PAPI_L1_DCM");
+        // addPerformanceCounter("PAPI_L2_DCM");
+        // addPerformanceCounter("PAPI_L3_TCM");
+        // addPerformanceCounter("PAPI_TLB_DM");
         
 
         Parameter *stride = new Parameter("stride", 1, 262144+1, 4, ParameterType::Multiply);

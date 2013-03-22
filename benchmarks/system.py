@@ -27,16 +27,16 @@ def plot(csvFile, scriptFile):
 	settings['yDivider'] = 1
 	settings['xDivider'] = 1
 	settings['grid'] = 'none'
-	settings['plotList'] = ['']
+	settings['plotList'] = []
 	settings['figureSize'] = (6.5, 6)
 	settings['numberOfYTicks'] = False
 
 	plots=list()
 
-
+	# execfile(scriptFile)
 	#executing the particular script so settings is filled with customization, errorcheck for crash prevention
 	try:
-		with execfile(scriptFile): pass
+		execfile(scriptFile)
 	except IOError:
 		print 'Couldn\'t open ' + scriptFile
 

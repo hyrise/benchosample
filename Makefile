@@ -88,4 +88,3 @@ dirs:
 clean:
 	@cd $(BENCHO_DIR) && make clean -s
 	$(call echo_cmd,REMOVE $(BENCH_BIN)) rm -rf $(BENCH_BIN)
-	@rm -rf benchmarks/*.pyc

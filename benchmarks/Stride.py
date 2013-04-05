@@ -28,8 +28,8 @@ settings['numberOfYTicks'] = 12
 #Uncomment to specify the exact figure size
 settings['figureSize'] = (6.5, 8)
 
-#Specify the columns you want to have in your plot optionally tupled with the name for the legend
-settings['plotList'] = [('random_PAPI_TOT_CYC_y', 'Random'), ('sequential_forwards_PAPI_TOT_CYC_y', 'Sequential')]
+#Specify the columns you want to have in your plot
+settings['plotList'] = ['random_PAPI_TOT_CYC_y', 'sequential_forwards_PAPI_TOT_CYC_y']
 
 plots.append(dict(settings))
 
@@ -39,8 +39,8 @@ settings['title'] = 'Stride Random Cache Misses'
 #Uncomment next line to specify a label for the y axis (default: list of plotted column names)
 settings['yLabel'] = 'Chache Misses per Element'
 
-#Specify the columns you want to have in your plot optionally tupled with the name for the legend
-settings['plotList'] = [('random_PAPI_L1_DCM_y', 'L1-Cache'), ('random_PAPI_L2_DCM_y', 'L2-Cache'), ('random_PAPI_L3_TCM_y', 'L3-Cache'), ('random_PAPI_TLB_DM_y', 'TLB')]
+#Specify the columns you want to have in your plot
+settings['plotList'] = ['random_PAPI_L1_DCM_y', 'random_PAPI_L2_DCM_y', 'random_PAPI_L3_TCM_y', 'random_PAPI_TLB_DM_y']
 
 plots.append(dict(settings))
 
@@ -50,8 +50,8 @@ settings['title'] = 'Stride Sequential Cache Misses'
 #Uncomment next line to specify a label for the y axis (default: list of plotted column names)
 settings['yLabel'] = 'Chache Misses per Element'
 
-#Specify the columns you want to have in your plot optionally tupled with the name for the legend
-settings['plotList'] = [('sequential_forwards_PAPI_L1_DCM_y', 'L1-Cache'), ('sequential_forwards_PAPI_L2_DCM_y', 'L2-Cache'), ('sequential_forwards_PAPI_L3_TCM_y', 'L3-Cache'), ('sequential_forwards_PAPI_TLB_DM_y', 'TLB')]
+#Specify the columns you want to have in your plot
+settings['plotList'] = ['sequential_forwards_PAPI_L1_DCM_y', 'sequential_forwards_PAPI_L2_DCM_y', 'sequential_forwards_PAPI_L3_TCM_y', 'sequential_forwards_PAPI_TLB_DM_y']
 
 plots.append(dict(settings))
 

@@ -60,7 +60,7 @@ libbencho = $(LIB_DIR)/lib$(LIB_NAME).a
 
 
 
-.PHONY: config dirs clean
+.PHONY: config dirs clean libbencho
 
 all: dirs libbencho benchmarks
 
@@ -72,13 +72,14 @@ lib: libbencho
 run: all
 	@./bencho/selectBenchmarks.sh $(BENCH_BIN) $(ARGUMENTS)
 
-libbencho: $(libbencho)
+libbencho:
+	$(call echo_cmd,)cd $(BENCHO_DIR) && make $(silent_cmd)
 
 $(libbencho):
 	$(call echo_cmd,)cd $(BENCHO_DIR) && make $(silent_cmd)
 
 benchmarks: $(binaries)
-
+	
 $(binaries): $(BENCH_BIN)/%: $(BENCH_SRC)/%.cpp $(libbencho)
 	$(call echo_cmd,CC $@) $(CC) -o $@ $< -L$(LIB_DIR)/ -l$(LIB_NAME) $(BUILD_FLAGS) $(LINKER_FLAGS) $(include_extern)
 

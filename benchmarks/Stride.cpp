@@ -48,8 +48,7 @@ public:
         addTestSeries(1, "sequential_forwards");
         addTestSeries(2, "sequential_backwards");
 
-        setAggregatingFunction(AggregationType::Average);
-        
+        setAggregatingFunction(AggregationType::Average);        
     }
     
     void prepareStart()

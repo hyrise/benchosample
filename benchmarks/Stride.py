@@ -6,6 +6,9 @@
 #Specify the title of your Plot (default: name of your benchmark)
 settings['title'] = 'Stride'
 
+#Uncomment next line to specify a type of Plot (default: line plot)
+#settings['type'] = 'line'
+
 #Uncomment next line to specify a label for the x axis (default: title of csv x-column)
 settings['xLabel'] = 'Stride in Bytes'
 #Uncomment next line to specify a label for the y axis (default: list of plotted column names)
@@ -55,5 +58,7 @@ settings['plotList'] = [('sequential_forwards_PAPI_L1_DCM_y', 'L1-Cache'), ('seq
 
 plots.append(dict(settings))
 
-
-
+#Example Settings for a Boxplot
+settings['title'] = 'Stride Boxplot'
+settings['yLabel'] = 'Stride in Bytes'
+settings['type'] = 'boxplot'

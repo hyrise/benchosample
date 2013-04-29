@@ -29,7 +29,7 @@ public:
         setName("Stride");
         setSequenceId("stride");
         setWarmUpRuns(0);
-        setMaxRuns(10);
+        setMaxRuns(5);
         
         
         addPerformanceCounter("PAPI_TOT_CYC");

@@ -59,6 +59,9 @@ settings['plotList'] = [('sequential_forwards_PAPI_L1_DCM_y', 'L1-Cache'), ('seq
 plots.append(dict(settings))
 
 #Example Settings for a Boxplot
-settings['title'] = 'Stride Boxplot'
+settings['title'] = 'Stride Boxplot for Sequential Values'
 settings['yLabel'] = 'Stride in Bytes'
 settings['type'] = 'boxplot'
+settings['plotList'] = [('sequential_forwards_PAPI_TOT_CYC_y', 'Sequential')]
+
+plots.append(dict(settings))

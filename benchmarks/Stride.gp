@@ -21,7 +21,7 @@ plot\
 
 # plot random cache misses
 ###########################
-set output "plot2.ps"
+set output "OUTPUT2.$(TERMINAL)"
 set ylabel "Misses per Element"
 set format y "%.1f"
 
@@ -35,7 +35,7 @@ plot\
     
 # plot sequential cache misses
 ###########################
-set output "plot3.ps"
+set output "OUTPUT3.$(TERMINAL)"
 set ylabel "Misses per Element"
 set format y "%.1f"
 

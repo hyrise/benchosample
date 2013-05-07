@@ -3,7 +3,7 @@ CC = clang++
 
 BENCHO_DIR = ./bencho
 BENCH_SRC = ./benchmarks
-BENCH_BIN = ./benchmarks/bin
+BENCH_BIN_DIR = ./benchmarks/bin
 
 # do not change these #
 INCLUDE_BENCHO = $(BENCHO_DIR)/include
@@ -52,7 +52,7 @@ ifeq ($(silent), 1)
 endif
 
 benchmarks := $(shell find $(BENCH_SRC) -type f -name "*.cpp" -not -name "_*")
-binaries := $(subst $(BENCH_SRC),$(BENCH_BIN),$(subst .cpp, ,$(benchmarks)))
+binaries := $(subst $(BENCH_SRC),$(BENCH_BIN_DIR),$(subst .cpp, ,$(benchmarks)))
 
 include_extern = $(shell find $(INCLUDE_EXTERN) -type f -name "*.cpp" 2>/dev/null)
 
@@ -65,27 +65,30 @@ libbencho = $(LIB_DIR)/lib$(LIB_NAME).a
 all: dirs libbencho benchmarks
 
 config:
-	@cd $(BENCHO_DIR) && make config -s
+	@cd $(BENCHO_DIR) && $(MAKE) config -s
 
 lib: libbencho
 
 run: all
-	@./bencho/selectBenchmarks.sh $(BENCH_BIN) $(ARGUMENTS)
+	@$(BENCHO_DIR)/selectBenchmarks.sh $(BENCH_BIN_DIR) $(ARGUMENTS)
+
+plot: all
+	@$(BENCHO_DIR)/plotOnly.sh $(BENCH_BIN_DIR)
 
 libbencho:
-	$(call echo_cmd,)cd $(BENCHO_DIR) && make $(silent_cmd)
+	$(call echo_cmd,)cd $(BENCHO_DIR) && $(MAKE) $(silent_cmd)
 
 $(libbencho):
-	$(call echo_cmd,)cd $(BENCHO_DIR) && make $(silent_cmd)
+	$(call echo_cmd,)cd $(BENCHO_DIR) && $(MAKE) $(silent_cmd)
 
 benchmarks: $(binaries)
 	
-$(binaries): $(BENCH_BIN)/%: $(BENCH_SRC)/%.cpp $(libbencho)
+$(binaries): $(BENCH_BIN_DIR)/%: $(BENCH_SRC)/%.cpp $(libbencho)
 	$(call echo_cmd,CC $@) $(CC) -o $@ $< -L$(LIB_DIR)/ -l$(LIB_NAME) $(BUILD_FLAGS) $(LINKER_FLAGS) $(include_extern)
 
 dirs:
-	@mkdir -p $(BENCH_BIN)
+	@mkdir -p $(BENCH_BIN_DIR)
 
 clean:
-	@cd $(BENCHO_DIR) && make clean -s
-	$(call echo_cmd,REMOVE $(BENCH_BIN)) rm -rf $(BENCH_BIN)
+	@cd $(BENCHO_DIR) && $(MAKE) clean -s
+	$(call echo_cmd,REMOVE $(BENCH_BIN_DIR)) rm -rf $(BENCH_BIN_DIR)

@@ -83,7 +83,7 @@ $(libbencho):
 
 benchmarks: $(binaries)
 	
-$(binaries): $(BENCH_BIN_DIR)/%: $(BENCH_SRC)/%.cpp $(libbencho)
+$(binaries): $(BENCH_BIN_DIR)/%: $(BENCH_SRC)/%.cpp $(libbencho) $(INCLUDE_BENCHO)/main.h
 	$(call echo_cmd,CC $@) $(CC) -o $@ $< -L$(LIB_DIR)/ -l$(LIB_NAME) $(BUILD_FLAGS) $(LINKER_FLAGS) $(include_extern)
 
 dirs:

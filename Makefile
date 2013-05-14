@@ -67,6 +67,9 @@ all: dirs libbencho benchmarks
 config:
 	@cd $(BENCHO_DIR) && $(MAKE) config -s
 
+docs:
+	@cd $(BENCHO_DIR) && $(MAKE) docs
+
 lib: libbencho
 
 run: all
@@ -90,5 +93,5 @@ dirs:
 	@mkdir -p $(BENCH_BIN_DIR)
 
 clean:
-	@cd $(BENCHO_DIR) && $(MAKE) clean -s
 	$(call echo_cmd,REMOVE $(BENCH_BIN_DIR)) rm -rf $(BENCH_BIN_DIR)
+	@cd $(BENCHO_DIR) && $(MAKE) clean -s

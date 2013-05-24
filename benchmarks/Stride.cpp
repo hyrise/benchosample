@@ -29,7 +29,7 @@ public:
         setName("Stride");
         setSequenceId("stride");
         setWarmUpRuns(0);
-        setMaxRuns(5);
+        setMaxRuns(1);
         
         
         addPerformanceCounter("PAPI_TOT_CYC");
@@ -49,7 +49,6 @@ public:
         addTestSeries(2, "sequential_backwards");
 
         setAggregatingFunction(AggregationType::Average);  
-        setRawDataOutput(true);
     }
     
     void prepareStart()

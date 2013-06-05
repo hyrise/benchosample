@@ -8,69 +8,71 @@ from system import Pyplot
 
 class Myplot(Pyplot):
 
-    def setUp(this):
+    def setUp(self):
 
         #Specify the title of your Plot (default: name of your benchmark)
-        settings['title'] = 'Stride'
+        self.settings['title'] = 'Stride'
 
         #Uncomment next line to specify a type of Plot (default: line plot)
-        #settings['type'] = 'line'
+        self.settings['type'] = 'line'
 
         #Uncomment next line to specify a label for the x axis (default: title of csv x-column)
-        settings['xLabel'] = 'Stride in Bytes'
+        self.settings['xLabel'] = 'Stride in Bytes'
         #Uncomment next line to specify a label for the y axis (default: list of plotted column names)
-        settings['yLabel'] = 'CPU Cycles per Element'
+        self.settings['yLabel'] = 'CPU Cycles per Element'
 
+        self.settings['xDivider'] = 1
+        
         #Uncomment next line if the yAxis tics should be divided by a special divider (like number on lines)
-        settings['yDivider'] = 4096
+        self.settings['yDivider'] = 4096
          
         #Uncomment next line to specify the scale of your benchmark (default: linear)
-        settings['xScale'] = 'log'
+        self.settings['xScale'] = 'log'
         #Uncomment next line to specify the base of a logarithmic scale (dafault: 10) 
-        settings['xScaleBase'] = 2
+        self.settings['xScaleBase'] = 2
 
         #Uncomment next line get a grid to the plot (default none, possible: xAxis, yAxis, both, none)
-        settings['grid'] = 'yAxis'
+        self.settings['grid'] = 'yAxis'
 
         #Uncomment to specify the number of ticks on the y-Axis
-        settings['numberOfYTicks'] = 12
+        self.settings['numberOfYTicks'] = 12
 
         #Uncomment to specify the exact figure size
-        settings['figureSize'] = (6.5, 8)
+        self.settings['figureSize'] = (6.5, 8)
 
         #Specify the columns you want to have in your plot optionally tupled with the name for the legend
-        settings['plotList'] = [('random_PAPI_TOT_CYC_y', 'Random'), ('sequential_forwards_PAPI_TOT_CYC_y', 'Sequential')]
+        self.settings['plotList'] = [('random_PAPI_TOT_CYC_y', 'Random'), ('sequential_forwards_PAPI_TOT_CYC_y', 'Sequential')]
 
-        plots.append(dict(settings))
+        self.plots.append(dict(self.settings))
 
         #Specify the title of your Plot (default: name of your benchmark)
-        settings['title'] = 'Stride Random Cache Misses'
+        self.settings['title'] = 'Stride Random Cache Misses'
 
         #Uncomment next line to specify a label for the y axis (default: list of plotted column names)
-        settings['yLabel'] = 'Cache Misses per Element'
+        self.settings['yLabel'] = 'Cache Misses per Element'
 
         #Specify the columns you want to have in your plot optionally tupled with the name for the legend
-        settings['plotList'] = [('random_PAPI_L1_DCM_y', 'L1-Cache'), ('random_PAPI_L2_DCM_y', 'L2-Cache'), ('random_PAPI_L3_TCM_y', 'L3-Cache'), ('random_PAPI_TLB_DM_y', 'TLB')]
+        self.settings['plotList'] = [('random_PAPI_L1_DCM_y', 'L1-Cache'), ('random_PAPI_L2_DCM_y', 'L2-Cache'), ('random_PAPI_L3_TCM_y', 'L3-Cache'), ('random_PAPI_TLB_DM_y', 'TLB')]
 
-        plots.append(dict(settings))
+        self.plots.append(dict(self.settings))
 
         #Specify the title of your Plot (default: name of your benchmark)
-        settings['title'] = 'Stride Sequential Cache Misses'
+        self.settings['title'] = 'Stride Sequential Cache Misses'
 
         #Uncomment next line to specify a label for the y axis (default: list of plotted column names)
-        settings['yLabel'] = 'Cache Misses per Element'
+        self.settings['yLabel'] = 'Cache Misses per Element'
 
         #Specify the columns you want to have in your plot optionally tupled with the name for the legend
-        settings['plotList'] = [('sequential_forwards_PAPI_L1_DCM_y', 'L1-Cache'), ('sequential_forwards_PAPI_L2_DCM_y', 'L2-Cache'), ('sequential_forwards_PAPI_L3_TCM_y', 'L3-Cache'), ('sequential_forwards_PAPI_TLB_DM_y', 'TLB')]
+        self.settings['plotList'] = [('sequential_forwards_PAPI_L1_DCM_y', 'L1-Cache'), ('sequential_forwards_PAPI_L2_DCM_y', 'L2-Cache'), ('sequential_forwards_PAPI_L3_TCM_y', 'L3-Cache'), ('sequential_forwards_PAPI_TLB_DM_y', 'TLB')]
 
-        plots.append(dict(settings))
+        self.plots.append(dict(self.settings))
 
-        #Example Settings for a Boxplot
-        settings['title'] = 'Stride Boxplot for Sequential Values'
-        settings['yLabel'] = 'Stride in Bytes'
-        settings['type'] = 'boxplot'
-        settings['plotList'] = [('sequential_forwards_PAPI_TOT_CYC_y', 'Sequential')]
+        #Example self.Settings for a Boxplot
+        self.settings['title'] = 'Stride Boxplot for Sequential Values'
+        self.settings['yLabel'] = 'Stride in Bytes'
+        self.settings['type'] = 'boxplot'
+        self.settings['plotList'] = [('sequential_forwards_PAPI_TOT_CYC_y', 'Sequential')]
 
-        plots.append(dict(settings))
+        self.plots.append(dict(self.settings))
         
 myplot = Myplot()

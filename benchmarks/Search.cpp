@@ -1,10 +1,12 @@
 #include "bencho.h"
-#include <stdlib.h>
+
+#include <iostream>
+#include <algorithm>
 
 class Search: public AbstractBenchmark
 {
 private:
-    vector<unsigned int> v;
+    std::vector<unsigned int> v;
     unsigned long long size;
     int val;
     int length;
@@ -56,7 +58,7 @@ public:
 		
     }
     
-    void prepareCombination(map<string, int> parameters, int combination)
+    void prepareCombination(std::map<std::string, int> parameters, int combination)
     {
         length = parameters["length"];
         size = (size_t)parameters["length"];
@@ -68,26 +70,26 @@ public:
         
     }
     
-    void finishCombination(map<string, int> parameters, int combination)
+    void finishCombination(std::map<std::string, int> parameters, int combination)
     {
         v.clear();
     }
     
-    void prepareRun(map<string, int> parameters, int combination, int test_series_id, int run)
+    void prepareRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
     {
 		clear();
 		val = 0;
         searchVal = abs(fastrand() % length);
 	}
     
-    void finishRun(map<string, int> parameters, int combination, int test_series_id, int run)
+    void finishRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
     {
-        cout << "Found " << val << " and searched for " << searchVal << "." << endl;
+        std::cout << "Found " << val << " and searched for " << searchVal << "." << std::endl;
 	}
     
-    void doTheTest(map<string, int> parameters, int combination, int test_series_id, int run)
+    void doTheTest(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
     {     
-        vector<unsigned int>::iterator itr;
+        std::vector<unsigned int>::iterator itr;
 
         switch (test_series_id) {
             case 0: {

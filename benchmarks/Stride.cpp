@@ -7,6 +7,8 @@
 
 #include "bencho.h"
 
+#include <iostream>
+
 class Stride: public AbstractBenchmark
 {
 private:
@@ -61,7 +63,7 @@ public:
 		
     }
     
-    void prepareCombination(map<string, int> parameters, int combination)
+    void prepareCombination(std::map<std::string, int> parameters, int combination)
     {
         stride = parameters["stride"];
         jumps = parameters["jumps"];
@@ -69,11 +71,11 @@ public:
         
         srand(time(NULL));
         
-        if(!posix_memalign((void**)&array_seq_f, 4096, sizeof(int*) * size)) cerr << "Couldn't align memory." << endl;
-        if(!posix_memalign((void**)&array_seq_b, 4096, sizeof(int*) * size)) cerr << "Couldn't align memory." << endl;
-        if(!posix_memalign((void**)&array_ran, 4096, sizeof(int*) * size)) cerr << "Couldn't align memory." << endl;
+        if(!posix_memalign((void**)&array_seq_f, 4096, sizeof(int*) * size)) std::cerr << "Couldn't align memory." << std::endl;
+        if(!posix_memalign((void**)&array_seq_b, 4096, sizeof(int*) * size)) std::cerr << "Couldn't align memory." << std::endl;
+        if(!posix_memalign((void**)&array_ran, 4096, sizeof(int*) * size)) std::cerr << "Couldn't align memory." << std::endl;
         
-        vector<int> v;
+        std::vector<int> v;
         v.reserve(size);
         
         for(unsigned long long i=1; i<jumps;i++)
@@ -88,7 +90,7 @@ public:
             } while (v[r] ==  i);
             array_ran[i] = (int*)&(array_ran[v[r]]);
             i = v[r];
-            swap(v[r], v[m-1]);
+            std::swap(v[r], v[m-1]);
         }
         array_ran[i] = (int*)&(array_ran[v[0]]);
         array_ran[v[0]] = NULL;
@@ -109,14 +111,14 @@ public:
 
     }
     
-    void finishCombination(map<string, int> parameters, int combination)
+    void finishCombination(std::map<std::string, int> parameters, int combination)
     {
         delete array_seq_f;
         delete array_seq_b;
         delete array_ran;
     }
     
-    void prepareRun(map<string, int> parameters, int combination, int test_series_id, int run)
+    void prepareRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
     {
 		clear();
 		sum = 0;
@@ -136,12 +138,12 @@ public:
         
 	}
     
-    void finishRun(map<string, int> parameters, int combination, int test_series_id, int run)
+    void finishRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
     {
-		cout << "sum: " << sum << p << endl;
+		std::cout << "sum: " << sum << p << std::endl;
 	}
     
-    void doTheTest(map<string, int> parameters, int combination, int test_series_id, int run)
+    void doTheTest(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
     {
         //while (p != NULL) {
 		//	p = *((int**)p);

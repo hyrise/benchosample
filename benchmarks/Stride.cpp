@@ -6,6 +6,9 @@
 */
 
 #include "bencho.h"
+#include "PlotterGnuplot.h"
+#include "PlotterPython.h"
+#include "PlotterR.h"
 
 #include <iostream>
 
@@ -49,7 +52,14 @@ public:
         addTestSeries(1, "sequential_forwards");
         addTestSeries(2, "sequential_backwards");
 
-        setAggregatingFunction(AggregationType::Average);  
+        setAggregatingFunction(AggregationType::Average); 
+
+        std::unique_ptr<AbstractPlotter> plotterGnuplot(new PlotterGnuplot());
+        std::unique_ptr<AbstractPlotter> plotterPython(new PlotterPython());
+        std::unique_ptr<AbstractPlotter> plotterR(new PlotterR());
+        addPlotter(move(plotterGnuplot));
+        addPlotter(move(plotterPython));
+        addPlotter(move(plotterR));
     }
     
     void prepareStart()

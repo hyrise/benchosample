@@ -17,10 +17,9 @@ private:
     int** array_seq_b;
     int** array_ran; 
     int sum;
+    unsigned long long jumps;
     unsigned long long size;
-    int stride;
-    int jumps;
-    
+   
 public:
 
     static std::string name() { return "Stride"; }
@@ -63,9 +62,9 @@ public:
 		
     }
     
-    void prepareCombination(std::map<std::string, int> parameters, int combination)
+    void prepareCombination(std::map<std::string, int> parameters, int /*combination*/)
     {
-        stride = parameters["stride"];
+        int stride = parameters["stride"];
         jumps = parameters["jumps"];
         size = (size_t)parameters["stride"] * (size_t)(parameters["jumps"]+1);
         
@@ -75,7 +74,7 @@ public:
         if(!posix_memalign((void**)&array_seq_b, 4096, sizeof(int*) * size)) std::cerr << "Couldn't align memory." << std::endl;
         if(!posix_memalign((void**)&array_ran, 4096, sizeof(int*) * size)) std::cerr << "Couldn't align memory." << std::endl;
         
-        std::vector<int> v;
+        std::vector<size_t> v;
         v.reserve(size);
         
         for(unsigned long long i=1; i<jumps;i++)
@@ -111,14 +110,14 @@ public:
 
     }
     
-    void finishCombination(std::map<std::string, int> parameters, int combination)
+    void finishCombination(std::map<std::string, int> /*parameters*/, int /*combination*/)
     {
         delete array_seq_f;
         delete array_seq_b;
         delete array_ran;
     }
     
-    void prepareRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
+    void prepareRun(std::map<std::string, int> parameters, int /*combination*/, int test_series_id, int /*run*/)
     {
 		clear();
 		sum = 0;
@@ -138,12 +137,12 @@ public:
         
 	}
     
-    void finishRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
+    void finishRun(std::map<std::string, int> /*parameters*/, int /*combination*/, int /*test_series_id*/, int /*run*/)
     {
 		std::cout << "sum: " << sum << p << std::endl;
 	}
     
-    void doTheTest(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
+    void doTheTest(std::map<std::string, int> /*parameters*/, int /*combination*/, int /*test_series_id*/, int /*run*/)
     {
         //while (p != NULL) {
 		//	p = *((int**)p);

@@ -8,9 +8,9 @@ class Search: public AbstractBenchmark
 private:
     std::vector<unsigned int> v;
     unsigned long long size;
+    unsigned long long length;
+    unsigned int searchVal;
     int val;
-    int length;
-    int searchVal;
     
 public:
 
@@ -58,7 +58,7 @@ public:
 		
     }
     
-    void prepareCombination(std::map<std::string, int> parameters, int combination)
+    void prepareCombination(std::map<std::string, int> parameters, int /*combination*/)
     {
         length = parameters["length"];
         size = (size_t)parameters["length"];
@@ -70,24 +70,24 @@ public:
         
     }
     
-    void finishCombination(std::map<std::string, int> parameters, int combination)
+    void finishCombination(std::map<std::string, int> /*parameters*/, int /*combination*/)
     {
         v.clear();
     }
     
-    void prepareRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
+    void prepareRun(std::map<std::string, int> /*parameters*/, int /*combination*/, int /*test_series_id*/, int /*run*/)
     {
 		clear();
 		val = 0;
         searchVal = abs(fastrand() % length);
 	}
     
-    void finishRun(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
+    void finishRun(std::map<std::string, int> /*parameters*/, int /*combination*/, int /*test_series_id*/, int /*run*/)
     {
         std::cout << "Found " << val << " and searched for " << searchVal << "." << std::endl;
 	}
     
-    void doTheTest(std::map<std::string, int> parameters, int combination, int test_series_id, int run)
+    void doTheTest(std::map<std::string, int> /*parameters*/, int /*combination*/, int test_series_id, int /*run*/)
     {     
         std::vector<unsigned int>::iterator itr;
 

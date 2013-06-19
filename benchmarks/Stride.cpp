@@ -57,9 +57,9 @@ public:
         std::unique_ptr<AbstractPlotter> plotterGnuplot(new PlotterGnuplot());
         std::unique_ptr<AbstractPlotter> plotterPython(new PlotterPython());
         std::unique_ptr<AbstractPlotter> plotterR(new PlotterR());
-        addPlotter(move(plotterGnuplot));
-        addPlotter(move(plotterPython));
-        addPlotter(move(plotterR));
+        addPlotter(std::move(plotterGnuplot));
+        addPlotter(std::move(plotterPython));
+        addPlotter(std::move(plotterR));
     }
     
     void prepareStart()

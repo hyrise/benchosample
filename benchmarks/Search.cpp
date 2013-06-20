@@ -35,8 +35,8 @@ public:
         
         addPerformanceCounter("PAPI_TOT_CYC");
 
-        Parameter *length = new Parameter("length", 1, 4 * 8192 * 1024 / 4, 2, ParameterType::Multiply);
-        addParameter(length);
+        std::unique_ptr<Parameter> length(new Parameter("length", 1, 4 * 8192 * 1024 / 4, 2, ParameterType::Multiply));
+        addParameter(std::move(length));
         
         addTestSeries(0, "linearSearch");
         addTestSeries(1, "binarySearch");

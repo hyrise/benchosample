@@ -6,6 +6,9 @@
 */
 
 #include "bencho.h"
+#include "PlotterGnuplot.h"
+#include "PlotterPython.h"
+#include "PlotterR.h"
 
 #include <iostream>
 
@@ -40,16 +43,23 @@ public:
         // addPerformanceCounter("PAPI_TLB_DM");
         
 
-        Parameter *stride = new Parameter("stride", 1, 262144+1, 4, ParameterType::Multiply);
-        Parameter *jumps = new Parameter("jumps", 4096);
-        addParameter(stride);      //later change for pointer parameter
-        addParameter(jumps);
+        std::unique_ptr<Parameter> stride(new Parameter("stride", 1, 262144+1, 4, ParameterType::Multiply));
+        std::unique_ptr<Parameter> jumps(new Parameter("jumps", 4096));
+        addParameter(std::move(stride));
+        addParameter(std::move(jumps));
         
         addTestSeries(0, "random");
         addTestSeries(1, "sequential_forwards");
         addTestSeries(2, "sequential_backwards");
 
-        setAggregatingFunction(AggregationType::Average);  
+        setAggregatingFunction(AggregationType::Average); 
+
+        std::unique_ptr<AbstractPlotter> plotterGnuplot(new PlotterGnuplot());
+        std::unique_ptr<AbstractPlotter> plotterPython(new PlotterPython());
+        std::unique_ptr<AbstractPlotter> plotterR(new PlotterR());
+        addPlotter(std::move(plotterGnuplot));
+        addPlotter(std::move(plotterPython));
+        addPlotter(std::move(plotterR));
     }
     
     void prepareStart()

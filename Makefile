@@ -76,7 +76,7 @@ run: all
 	@$(BENCHO_DIR)/selectBenchmarks.sh $(BENCH_BIN_DIR) $(ARGUMENTS)
 
 plot: all
-	@$(BENCHO_DIR)/plotOnly.sh $(BENCH_BIN_DIR)
+	@$(BENCHO_DIR)/selectBenchmarks.sh $(BENCH_BIN_DIR) -plotonly
 
 libbencho:
 	$(call echo_cmd,)cd $(BENCHO_DIR) && $(MAKE) $(silent_cmd)

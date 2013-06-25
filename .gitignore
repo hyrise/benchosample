@@ -15,6 +15,7 @@
 benchmarks/*.pyc
 
 .DS_Store
+build/
 bencho/build/
 bencho/plot_last_bench.txt
 bencho/plot_last_run.txt

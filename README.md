@@ -24,4 +24,10 @@ To run the sample benchmark, call
 
 If you want to use Bencho for yourself, place your own benchmarks into the benchmarks/ folder and external include files into include/_name-of-benchmark_/.
 
-Have a look at the sample benchmark source code as well as the Bencho documentation to get to know how a benchmark has to be structured to work well with Bencho.
+Have a look at the sample benchmark source code (benchmarks/Stride.cpp) as well as the Bencho documentation to get to know how a benchmark has to be structured to work well with Bencho.
+
+### Connecting Bencho to the SAP HANA database
+
+Have a look at benchmarks/HanaConnection.cpp to get to know with the setup for benchmarking queries on the Hana database.
+We are using the database access library [Soci](http://soci.sourceforge.net/index.html).
+Also you have to have the SAP HANA Client installed. Then just add the soci-includes to your benchmark (see benchmarks/HanaConnection.cpp), compile with -I/_path-to-soci_/ and link with -lsoci_core -lsoci_odbc, just like in the provided sample Makefile.

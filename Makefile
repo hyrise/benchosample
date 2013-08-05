@@ -12,7 +12,7 @@ LIB_NAME = bencho
 # if you need to include extra files for your benchmarks #
 INCLUDE_EXTERN = ./include/$(@F)
 
-INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN) $(shell python-config --includes)
+INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN) $(shell python-config --includes) -I/usr/local/include/soci
 
 PYTHON_VERSION = $(shell python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
 
@@ -20,7 +20,7 @@ settings = $(BENCHO_DIR)/settings.conf
 -include $(settings)
 
 BUILD_FLAGS = $(INCLUDE) -std=c++0x -Wall -Wextra -pedantic -Werror
-LINKER_FLAGS = -lpthread -ldl -lpython$(PYTHON_VERSION)
+LINKER_FLAGS = -lpthread -ldl -lpython$(PYTHON_VERSION) -lsoci_core -lsoci_odbc
 
 ifeq ($(PROD), 1)
 	BUILD_FLAGS += -O3 -finline-functions -DNDEBUG -D USE_TRACE -g -pipe

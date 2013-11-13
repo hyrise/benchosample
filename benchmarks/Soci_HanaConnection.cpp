@@ -9,7 +9,7 @@
 
 using namespace soci;
 
-class HanaConnection: public AbstractBenchmark
+class Soci_HanaConnection: public AbstractBenchmark
 {
 private:
     session sql;
@@ -18,12 +18,12 @@ private:
    
 public:
 
-    static std::string name() { return "HanaConnection"; }
+    static std::string name() { return "Soci_HanaConnection"; }
 
 
     void initialize()
     {
-        setName("HanaConnection");
+        setName("Soci_HanaConnection");
         setSequenceId("stride");
         setWarmUpRuns(0);
         setMaxRuns(1);
@@ -104,4 +104,4 @@ public:
 };  
 
 
-MAIN(HanaConnection)
+MAIN(Soci_HanaConnection)

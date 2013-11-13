@@ -1,6 +1,8 @@
 CC = g++
 
 
+USE_SOCI = 0
+
 BENCHO_DIR = ./bencho
 BENCH_SRC = ./benchmarks
 BENCH_BIN_DIR = ./benchmarks/bin
@@ -12,7 +14,7 @@ LIB_NAME = bencho
 # if you need to include extra files for your benchmarks #
 INCLUDE_EXTERN = ./include/$(@F)
 
-INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN) $(shell python-config --includes) -I/usr/local/include/soci
+INCLUDE = -I$(INCLUDE_BENCHO) -I$(INCLUDE_EXTERN) $(shell python-config --includes)
 
 PYTHON_VERSION = $(shell python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
 
@@ -20,7 +22,7 @@ settings = $(BENCHO_DIR)/settings.conf
 -include $(settings)
 
 BUILD_FLAGS = $(INCLUDE) -std=c++0x -Wall -Wextra -pedantic -Werror
-LINKER_FLAGS = -lpthread -ldl -lpython$(PYTHON_VERSION) -lsoci_core -lsoci_odbc
+LINKER_FLAGS = -lpthread -ldl -lpython$(PYTHON_VERSION)
 
 ifeq ($(PROD), 1)
 	BUILD_FLAGS += -O3 -finline-functions -DNDEBUG -D USE_TRACE -g -pipe
@@ -51,7 +53,17 @@ ifeq ($(silent), 1)
 	ARGUMENTS += -silent
 endif
 
-benchmarks := $(shell find $(BENCH_SRC) -type f -name "*.cpp" -not -name "_*")
+ifeq ($(USE_SOCI), 1)
+	INCLUDE += -I/usr/local/include/soci
+	LINKER_FLAGS += -lsoci_core -lsoci_odbc
+endif
+
+benchmarks := $(shell find $(BENCH_SRC) -type f -name "*.cpp" -not -name "*_*")
+
+ifeq ($(USE_SOCI), 1)
+	benchmarks += $(shell find $(BENCH_SRC) -type f -name "Soci_*.cpp")
+endif
+
 binaries := $(subst $(BENCH_SRC),$(BENCH_BIN_DIR),$(subst .cpp, ,$(benchmarks)))
 
 include_extern = $(shell find $(INCLUDE_EXTERN) -type f -name "*.cpp" 2>/dev/null)

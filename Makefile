@@ -21,7 +21,7 @@ PYTHON_VERSION = $(shell python -c 'import sys; print(".".join(map(str, sys.vers
 settings = $(BENCHO_DIR)/settings.conf
 -include $(settings)
 
-BUILD_FLAGS = $(INCLUDE) -std=c++0x -Wall -Wextra -pedantic -Werror
+BUILD_FLAGS = $(INCLUDE) -std=c++11 -Wall -Wextra -pedantic -Werror
 LINKER_FLAGS = -lpthread -ldl -lpython$(PYTHON_VERSION)
 
 ifeq ($(PROD), 1)

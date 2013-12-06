@@ -104,6 +104,11 @@ $(binaries): $(BENCH_BIN_DIR)/%: $(BENCH_SRC)/%.cpp $(libbencho) $(INCLUDE_BENCH
 dirs:
 	@mkdir -p $(BENCH_BIN_DIR)
 
+
+tmpfiles := $(shell find "./results" -type f -name "*.tmp")
+tmpfiles += $(shell find "./results" -type f -name "*_final.gp")
+
 clean:
 	$(call echo_cmd,REMOVE $(BENCH_BIN_DIR)) rm -rf $(BENCH_BIN_DIR)
+	$(call echo_cmd,REMOVE TEMPORARY FILES $(tmpfiles)) rm -rf $(tmpfiles)
 	@cd $(BENCHO_DIR) && $(MAKE) clean -s
